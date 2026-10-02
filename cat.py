@@ -1,11 +1,19 @@
 '''
-This program prints stdin to the screen.
+This program prints stdin (or the given files) to the screen while using only
+constant memory.
 '''
 import sys
 
-def cat(file):
-    data = file.read()
-    sys.stdout.buffer.write(data)
+CHUNK_SIZE = 64 * 1024
+
+
+def cat(file_obj):
+    while True:
+        chunk = file_obj.read(CHUNK_SIZE)
+        if not chunk:
+            break
+        sys.stdout.buffer.write(chunk)
+
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
@@ -14,3 +22,18 @@ if __name__ == "__main__":
                 cat(f)
     else:
         cat(sys.stdin.buffer)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
