@@ -1,11 +1,10 @@
-'''
-This program prints stdin to the screen.
-'''
-import sys
-
 def cat(file):
-    data = file.read()
-    sys.stdout.buffer.write(data)
+    out = sys.stdout.buffer
+    while True:
+        chunk = file.read(CHUNK_SIZE)
+        if not chunk:
+            break
+        out.write(chunk)
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
